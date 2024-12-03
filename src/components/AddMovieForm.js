@@ -1,11 +1,37 @@
 import React, { useState } from "react";
-
-export default function AddMovieForm({ onAddMovie }) {
+ 
+function AddMovieForm({ onAddMovie }) {
   const [title, setTitle] = useState("");
 
   const handleSubmit = (e) => {
-    // TODO: write code to handle form submission
+    e.preventDefault();
+
+    if (!title.trim()) return;
+    
+    const newMovie = { 
+      id: Date.now(),
+      title,
+      watched: false
+
+
+    };
+
+    onAddMovie(newMovie);
+    setTitle("");
   };
 
-  return; // TODO: add a form to add a new movie
+  return(
+    <form className="add-form" onSubmit={handleSubmit}>
+      <input 
+      type="text" 
+      placeholder="Movie Title" 
+      value={title} 
+      onChange={(e)=>setTitle(e.target.value)}></input>
+
+      <button type="submit">Add Movie</button>
+    </form>
+  );
 }
+
+
+export default AddMovieForm;
